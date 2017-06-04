@@ -5,13 +5,13 @@ This is a simple catalog web application built mostly in Python and HTML. It uti
 ## Getting Started
 Please make sure you have [Virtual Box](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html) installed. Then run the following commands from the main folder:
 
-vagrant up
-vagrant ssh
-cd /vagrant/catalog
-python database_setup.py
-python sample_data.py
-python project.py
-http://localhost:8000/
+1. vagrant up
+2. vagrant ssh
+3. cd /vagrant/catalog
+4. python database_setup.py
+5. python sample_data.py
+6. python project.py
+7. http://localhost:8000/
 
 
 ## Usage
