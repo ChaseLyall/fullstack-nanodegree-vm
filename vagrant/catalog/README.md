@@ -8,10 +8,11 @@ Please make sure you have [Virtual Box](https://www.virtualbox.org/wiki/Download
 1. vagrant up
 2. vagrant ssh
 3. cd /vagrant/catalog
-4. python database_setup.py
-5. python sample_data.py
-6. python project.py
-7. http://localhost:8000/
+4. bash pg_config.sg
+5. python database_setup.py
+6. python sampledata.py
+7. python project.py
+8. http://localhost:5000/
 
 
 ## Usage
