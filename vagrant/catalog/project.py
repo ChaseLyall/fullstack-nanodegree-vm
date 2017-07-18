@@ -88,13 +88,17 @@ def fbconnect():
     result = h.request(url, 'GET')[1]
 
     # Use token to get user info from API
-    userinfo_url = "https://graph.facebook.com/v2.9/me"
-    # strip expire tag from access token
-    token = result.split("&")[0]
-    print(token)
+    userinfo_url = "https://graph.facebook.com/v2.8/me"
+    '''
+        Due to the formatting for the result from the server token exchange we have to
+        split the token first on commas and select the first index which gives us the key : value
+        for the server access token then we split it on colons to pull out the actual token value
+        and replace the remaining quotes with nothing so that it can be used directly in the graph
+        api calls
+    '''
+    token = result.split(',')[0].split(':')[1].replace('"', '')
 
-
-    url = 'https://graph.facebook.com/v2.9/me?%s&fields=name,id,email' % token
+    url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % token
     print(url)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
@@ -106,14 +110,12 @@ def fbconnect():
     login_session['email'] = data["email"]
     login_session['facebook_id'] = data["id"]
 
-    # The token must be stored in the login_session in order to properly logout,
-    # let's strip out the information before the equals sign in our token
-    stored_token = token.split("=")[1]
-    login_session['access_token'] = stored_token
+    # The token must be stored in the login_session in order to properly logout
+    login_session['access_token'] = token
 
     # Get user picture
-    url = ('https://graph.facebook.com/v2.9/me/picture?%s'
-           '&redirect=0&height=200&width=200') % token
+url = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s'
+      '&redirect=0&height=200&width=200' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
