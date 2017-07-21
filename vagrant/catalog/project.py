@@ -84,8 +84,10 @@ def fbconnect():
     url = ('https://graph.facebook.com/oauth/access_token'
            '?client_id=%s&client_secret=%s'
            '&grant_type=client_credentials') % (app_id, app_secret)
+    print(url)
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
+    print(result)
 
     # Use token to get user info from API
     userinfo_url = "https://graph.facebook.com/v2.8/me"
@@ -97,7 +99,7 @@ def fbconnect():
         api calls
     '''
     token = result.split(',')[0].split(':')[1].replace('"', '')
-
+    print(token)
     url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % token
     print(url)
     h = httplib2.Http()
@@ -114,8 +116,8 @@ def fbconnect():
     login_session['access_token'] = token
 
     # Get user picture
-url = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s'
-      '&redirect=0&height=200&width=200' % token
+    url = ('https://graph.facebook.com/v2.8/me/picture?access_token=%s'
+           '&redirect=0&height=200&width=200') % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
